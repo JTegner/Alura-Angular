@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-const cloud = 'http://localhost:3000/imgs';
+const CLOUD = 'http://localhost:3000/imgs/';
 
 @Component({
     selector: 'ap-photo',
@@ -15,7 +15,11 @@ export class PhotoComponent {
     //@Input() url='';
 
     @Input() set url(url: string) {
-        this._url = url;
+        if(!url.startsWith('data')) {
+            this._url = CLOUD + url;
+        } else {
+            this._url = url;
+        }
     }
 
     get url() {
