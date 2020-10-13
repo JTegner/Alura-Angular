@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Input } from "@angular/core";
 import { PhotoService } from "../../photo/photo.service";
 import { PhotoComment } from '../../photo/photo.comment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'ap-photo-comments',
@@ -11,13 +12,19 @@ import { PhotoComment } from '../../photo/photo.comment';
 export class PhotoCommentsComponent implements OnInit {
 
     @Input() photoId: number;
+    commentForm: FormGroup;
 
     comments$: Observable<PhotoComment[]>;
 
-    constructor(private photoService: PhotoService) {}
+    constructor(
+        private photoService: PhotoService,
+        private formBuilder: FormBuilder) {}
 
     ngOnInit(): void {
 
         this.comments$ = this.photoService.getComments(this.photoId);
+        this.commentForm = this.formBuilder.group({
+            comment: ['', Validators.maxLength(300)]
+        })
     }
 }
