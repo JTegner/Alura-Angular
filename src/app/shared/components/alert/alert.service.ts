@@ -5,7 +5,7 @@ import { AlertType, Alert } from "./alert";
 @Injectable({ providedIn: 'root'})
 export class AlertService {
 
-    alertSubject: Subject<Alert>;
+    alertSubject: Subject<Alert> = new Subject<Alert>();
 
     success(message: string) {
         this.alert(AlertType.SUCCESS, message);
@@ -25,7 +25,7 @@ export class AlertService {
 
     private alert(alertType: AlertType, message: string) {
 
-        this.alertSubject.next(new Alert(alertType, message);)
+        this.alertSubject.next(new Alert(alertType, message));
     }
 
     getAlert() {
