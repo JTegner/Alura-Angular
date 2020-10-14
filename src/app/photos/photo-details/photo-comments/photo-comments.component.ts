@@ -30,7 +30,7 @@ export class PhotoCommentsComponent implements OnInit {
         })
     }
 
-    save(){
+    save() {
         //console.log('chamei save');
         //const comment = this.commentForm.get('comment').value as string;
         //this.photoService
@@ -41,11 +41,12 @@ export class PhotoCommentsComponent implements OnInit {
         //})
         const comment = this.commentForm.get('comment').value as string;
         this.comments$ = this.photoService
-        .addComment(this.photoId, comment)
-        .pipe(switchMap(() => this.photoService.getComments(this.photoId)))
-        .pipe(tap(() => {
-                this.commentForm.reset();
-                alert('Comentário adicionado com sucesso');
+                .addComment(this.photoId, comment)
+                .pipe(switchMap(() => this.photoService.getComments(this.photoId)))
+                .pipe(tap(() => {
+                    this.commentForm.reset();
+                    alert('Comentário adicionado com sucesso');
+          }));
     }
 
 }
