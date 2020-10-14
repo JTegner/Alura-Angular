@@ -7,4 +7,4 @@ import { CommonModule } from "@angular/common";
     exports: [AlertComponent],
     imports: [CommonModule]
 })
-export class AlertModule{}
+export class AlertModule {}
