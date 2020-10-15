@@ -1,3 +1,4 @@
+// exibe o componente se ele for do usuário logado
 import { Directive, ElementRef, OnInit, Renderer } from "@angular/core";
 import { Photo } from "../../photo/photo";
 import { Input } from "@angular/core";
