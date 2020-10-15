@@ -15,9 +15,9 @@ export class AlertService {
             if(event instanceof NavigationStart) {
                 if(this.keepAfterRouteChange) {
                     this.keepAfterRouteChange = false;
-                }
-            } else {
+                } else {
                 this.clear();
+                }
             }
         });
     }
