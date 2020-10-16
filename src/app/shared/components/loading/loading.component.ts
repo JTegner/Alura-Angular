@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'ap-loading',
-    templateUrl: './loading.component.html'
+    templateUrl: './loading.component.html',
+    styleUrls: ['loading.component.css']
 })
 export class LoadingComponent implements OnInit {
 
