@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 
@@ -10,6 +10,7 @@ import { PlatformDetectorService } from 'src/app/core/platform-detector/platform
 })
 export class SignInComponent implements OnInit {
 
+    fromUrl: string;
     loginForm: FormGroup;
     @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
 
@@ -19,9 +20,16 @@ export class SignInComponent implements OnInit {
         private router: Router,
         private platformDetectorService: PlatformDetectorService,
         //private titleService: Title
+        private activatedRoute: ActivatedRoute 
         ) { }
 
     ngOnInit(): void {
+        //this.activatedRoute.params.subscribe // para pegar os segmentos de rota
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.fromUrl = params.fromUrl; //params.fromUrl do auth.guard
+            //ou
+            //this.fromUrl = params['fromUrl']; //para indicar criada dinamicamente
+        })
         //this.titleService.setTitle('Login');
         this.loginForm = this.formBuilder.group({
             userName: ['', Validators.required],
@@ -40,7 +48,13 @@ export class SignInComponent implements OnInit {
         .subscribe(
             //() => console.log('autenticado');
             //() => this.router.navigateByUrl('user/' + userName),
-            () => this.router.navigate(['user', userName]),
+            () => {
+                if(this.fromUrl) {
+                    this.router.navigateByUrl(this.fromUrl);
+                } else {
+                    this.router.navigate(['user', userName])
+                }
+            },
             err => {
                 console.log(err);
                 this.loginForm.reset();
